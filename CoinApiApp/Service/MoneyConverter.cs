@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace CoinApiApp.Models
+namespace CoinApiApp.Service
 {
     public class MoneyConverter : IValueConverter
     {
