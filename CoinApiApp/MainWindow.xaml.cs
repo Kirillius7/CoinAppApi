@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoinApiApp.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace CoinApiApp
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var api = new ApiService();
+            var currencies = await api.GetTopCurrenciesAsync();
+
+            foreach (var c in currencies)
+            {
+                Console.WriteLine($"{c.Name} ({c.Symbol}): {c.CurrentPrice} USD, change: {c.PriceChangePercentage24h}%");
+            }
         }
     }
 }

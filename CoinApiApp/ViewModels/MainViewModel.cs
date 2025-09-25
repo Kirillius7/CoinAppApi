@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CoinApiApp.ViewModels
 {
-    public class MainPageViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         //public ObservableCollection<CryptoCurrency> Currencies { get; set; }
         private ObservableCollection<CryptoCurrency> _allCurrencies = new ObservableCollection<CryptoCurrency>();
@@ -37,7 +37,7 @@ namespace CoinApiApp.ViewModels
         public ICommand SearchCommand { get; }
         public ICommand RefreshCommand { get; }
         public ICommand SortCommand { get; }
-        public MainPageViewModel()
+        public MainViewModel()
         {
             Currencies = new ObservableCollection<CryptoCurrency>();
             _apiService = new ApiService();
