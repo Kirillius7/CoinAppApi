@@ -38,6 +38,36 @@ namespace CoinApiApp.Service
 
             return currencies ?? new List<CryptoCurrency>();
         }
-        
+        public async Task<List<(DateTime Date, decimal Price)>> GetCoinHistoryAsync(string coinId, int days = 7)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = $"https://api.coingecko.com/api/v3/coins/{coinId}/market_chart?vs_currency=usd&days={days}";
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                using (var doc = JsonDocument.Parse(json))
+                {
+                    var prices = doc.RootElement.GetProperty("prices");
+                    var result = new List<(DateTime, decimal)>();
+
+                    foreach (var item in prices.EnumerateArray())
+                    {
+                        // item[0] = timestamp (мс)
+                        // item[1] = ціна
+                        long timestamp = item[0].GetInt64();
+                        decimal price = item[1].GetDecimal();
+
+                        var date = DateTimeOffset.FromUnixTimeMilliseconds(timestamp).DateTime;
+                        result.Add((date, price));
+                    }
+
+                    return result;
+                }
+            }
+        }
+
     }
 }
