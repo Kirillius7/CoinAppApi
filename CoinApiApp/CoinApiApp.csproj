@@ -118,7 +118,7 @@
     <Compile Include="Service\ApiService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CoinDetailsViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="Views\CoinDetails.xaml.cs">
       <DependentUpon>CoinDetails.xaml</DependentUpon>
     </Compile>
