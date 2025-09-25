@@ -1,0 +1,144 @@
+﻿<Window x:Class="CoinApiApp.Views.CoinDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoinApiApp.Views"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:conv="clr-namespace:CoinApiApp.Service"
+        mc:Ignorable="d"
+        Title="CoinDetails" Height="450" Width="800" FontFamily="Times New Roman" FontSize="14">
+    <Window.Resources>
+        <conv:MoneyConverter x:Key="MoneyConverter"/>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFC1D1D8" Offset="0.367"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- назва + символ -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!-- показники -->
+            <RowDefinition Height="*"/>
+            <!-- графік -->
+        </Grid.RowDefinitions>
+
+        <!-- Назва і символ -->
+        <!--<StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Grid.Column="1">-->
+        <Grid Grid.Column="1" Grid.Row="0">
+            <TextBlock Text="{Binding Name}" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+           HorizontalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="{Binding Symbol}" 
+                   FontSize="16"
+                   Foreground="Black"
+           HorizontalAlignment="Center"/>
+        </Grid>
+        <!--</StackPanel>-->
+
+        <!-- Показники в 2 стовпці -->
+        <Grid Grid.Row="2" Margin="0,0,0,10" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="10,0">
+                <TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding CurrentPrice, StringFormat='Ціна: {0:C}'}" TextAlignment="Center"/>
+                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding MarketCap, Converter = {StaticResource MoneyConverter} StringFormat='Капіталізація: ${0}'}" TextAlignment="Center" ToolTip="{Binding MarketCap, StringFormat='Капіталізація: {0:C}'}"/>-->
+                <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Капіталізація: {0}">
+                            <!-- скорочене значення -->
+                            <Binding Path="MarketCap" Converter="{StaticResource MoneyConverter}" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+
+                    <TextBlock.ToolTip>
+                        <!-- повне значення-->
+                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
+                        <StackPanel>
+                            <TextBlock Text="Капіталізація:" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding MarketCap, StringFormat={}{0:N0} USD}" />
+                        </StackPanel>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding PriceChangePercentage24h, StringFormat='Зміна за 24h: {0:N2}%'}" TextAlignment="Center" />
+                <TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding MarketCapRank, StringFormat='Ранг: {0}'}" TextAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="10,0">
+                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding TotalSupply, StringFormat='Макс. кількість: {0}'}" TextAlignment="Center"/>-->
+                <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Макс. кількість: {0}">
+                            <!-- скорочене значення -->
+                            <Binding Path="TotalSupply" Converter="{StaticResource MoneyConverter}" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+
+                    <TextBlock.ToolTip>
+                        <!-- повне значення-->
+                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
+                        <StackPanel>
+                            <TextBlock Text="Макс. кількість:" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding TotalSupply, StringFormat={}{0:N0} USD}" />
+                        </StackPanel>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding CirculatingSupply, StringFormat='В обігу: {0:N2}'}" TextAlignment="Center"/>-->
+                <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="В обігу: {0}">
+                            <!-- скорочене значення -->
+                            <Binding Path="CirculatingSupply" Converter="{StaticResource MoneyConverter}" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+
+                    <TextBlock.ToolTip>
+                        <!-- повне значення-->
+                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
+                        <StackPanel>
+                            <TextBlock Text="В обігу:" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding CirculatingSupply, StringFormat={}{0:N0} USD}" />
+                        </StackPanel>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding TotalVolume, StringFormat='Обсяг торгів (24h): {0:N2}'}" TextAlignment="Center"/>-->
+                <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Обсяг торгів (24h): {0}">
+                            <!-- скорочене значення -->
+                            <Binding Path="TotalVolume" Converter="{StaticResource MoneyConverter}" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+
+                    <TextBlock.ToolTip>
+                        <!-- повне значення-->
+                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
+                        <StackPanel>
+                            <TextBlock Text="Обсяг торгів (24h):" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding TotalVolume, StringFormat={}{0:N0} USD}" />
+                        </StackPanel>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <oxy:PlotView Grid.Row="3" 
+                  Grid.ColumnSpan="4" 
+                  Model="{Binding PricePlotModel}" />
+    </Grid>
+</Window>
