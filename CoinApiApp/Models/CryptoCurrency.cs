@@ -13,21 +13,22 @@ namespace CoinApiApp.Models
         public string Symbol { get; set; }
         public string Name { get; set; }
 
-        [JsonPropertyName("current_price")]
-        public decimal CurrentPrice { get; set; }
+        [JsonPropertyName("current_price")] // перехід від системи підпису Json до C#
+        public decimal CurrentPrice { get; set; } // ціна
 
         [JsonPropertyName("market_cap")]
-        public decimal MarketCap { get; set; }
+        public decimal MarketCap { get; set; } // капіталізація
 
         [JsonPropertyName("price_change_percentage_24h")]
-        public decimal PriceChangePercentage24h { get; set; }
+        public decimal PriceChangePercentage24h { get; set; } // зміна в ціні за останні 24 години
 
-        // Нові поля
         [JsonPropertyName("total_supply")]
-        public decimal TotalSupply { get; set; }            // Макс. кількість монет
+        public decimal TotalSupply { get; set; } // Макс. кількість монет
+        
         [JsonPropertyName("circulating_supply")]
-        public decimal CirculatingSupply { get; set; }      // В обігу
+        public decimal CirculatingSupply { get; set; } // Кількість монет в обігу
+        
         [JsonPropertyName("total_volume")]
-        public decimal TotalVolume { get; set; }
+        public decimal TotalVolume { get; set; } // який обсяг торгів монетою за останні 24 години
     }
 }
