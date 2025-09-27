@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoinApiApp"
-        xmlns:vm="clr-namespace:CoinApiApp.ViewModels"
-        
+        xmlns:vm="clr-namespace:CoinApiApp.ViewModels"    
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -45,12 +44,11 @@
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
-
             <TextBlock Text="Кількість:" Grid.Column="1" FontFamily="Times New Roman" FontSize="20px" FontWeight="DemiBold" Height="30"/>
             <TextBox Width="50" VerticalContentAlignment="Center" TextAlignment="Center"  Grid.Column="2" Text="{Binding CoinCount, UpdateSourceTrigger=PropertyChanged}" FontSize="15px" Margin="3,5,2,10"/>
             <TextBlock Text="Пошук:" Grid.Column="4" FontFamily="Times New Roman" FontSize="20px" FontWeight="DemiBold" Height="30"/>
             <TextBox Width="150" VerticalContentAlignment="Center" Margin="10,5,10,10" Grid.Column="5" 
-         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" FontSize="15px"/>
+            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" FontSize="15px"/>
             <Button Content="Знайти" Grid.Column="6" Command="{Binding SearchCommand}" Margin="5,0" Width="75px" FontSize="15px" Height="30px" BorderBrush="Black">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -84,9 +82,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="5">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -114,9 +112,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="5">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -165,7 +163,6 @@
                 </Button.Style>
             </Button>
         </StackPanel>
-        <!--<StackPanel Grid.Row="3">-->
         <DataGrid ItemsSource="{Binding Currencies}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
           SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
           AutoGenerateColumns="False">
@@ -176,7 +173,5 @@
                 <DataGridTextColumn Header="Популярність" Binding="{Binding MarketCap}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <!--</StackPanel>-->
-
     </Grid>
 </Window>
