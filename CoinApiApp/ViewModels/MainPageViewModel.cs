@@ -13,14 +13,13 @@ namespace CoinApiApp.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        //public ObservableCollection<CryptoCurrency> Currencies { get; set; }
         private ObservableCollection<CryptoCurrency> _allCurrencies = new ObservableCollection<CryptoCurrency>();
         public ObservableCollection<CryptoCurrency> Currencies { get; set; } = new ObservableCollection<CryptoCurrency>();
 
-        private readonly ApiService _apiService;
+        private readonly ApiService _apiService; 
 
         private CryptoCurrency _selectedCoin;
-        public CryptoCurrency SelectedCoin
+        public CryptoCurrency SelectedCoin // властивість для вибору монети для огляду
         {
             get => _selectedCoin;
             set
@@ -33,6 +32,7 @@ namespace CoinApiApp.ViewModels
             }
         }
 
+        // перелік команд для застосування
         public ICommand ShowDetailsCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand RefreshCommand { get; }
@@ -42,14 +42,9 @@ namespace CoinApiApp.ViewModels
             Currencies = new ObservableCollection<CryptoCurrency>();
             _apiService = new ApiService();
 
+            // завантаження даних для детального огляду монети
             ShowDetailsCommand = new RelayCommand<CryptoCurrency>(async coin =>
             {
-                //var window = new Views.CoinDetails
-                //{
-                //    DataContext = new DetailsViewModel(coin)
-                //};
-                //window.ShowDialog();
-
                 var history = await _apiService.GetCoinHistoryAsync(coin.Id);
 
                 var prices = history.Select(h => h.Price).ToList();
@@ -70,7 +65,7 @@ namespace CoinApiApp.ViewModels
         }
         private bool orderName = true;
         private bool orderMarket = true;
-        private void ApplySort(string criteria)
+        private void ApplySort(string criteria) // сортування за іменем або за ринковим показником
         {
             IEnumerable<CryptoCurrency> sorted;
 
@@ -104,16 +99,12 @@ namespace CoinApiApp.ViewModels
                     sorted = Currencies.ToList();
                     break;
             }
-
-            // Перезаписуємо колекцію
-            //Currencies = new ObservableCollection<CryptoCurrency>(sorted);
-            //OnPropertyChanged(nameof(Currencies));
-            Currencies.Clear();
+            Currencies.Clear(); // видалення значень у початковому списку 
             foreach (var currency in sorted)
-                Currencies.Add(currency);
+                Currencies.Add(currency); // завантаження заново у потрібному порядку
         }
 
-        private int _coinCount = 10;
+        private int _coinCount = 10; // початкова змінна для виведення певної кількості монет
         public int CoinCount
         {
             get => _coinCount;
@@ -127,7 +118,7 @@ namespace CoinApiApp.ViewModels
                 }
             }
         }
-        private string _searchText;
+        private string _searchText; // змінна з властивістю для пошуку монет за назвою
         public string SearchText
         {
             get => _searchText;
@@ -163,7 +154,7 @@ namespace CoinApiApp.ViewModels
         {
             try
             {
-                var list = await _apiService.GetTopCurrenciesAsync(CoinCount);
+                var list = await _apiService.GetTopCurrenciesAsync(CoinCount); // завантаження списку монет
 
                 if (list != null)
                 {
@@ -171,7 +162,7 @@ namespace CoinApiApp.ViewModels
                     foreach (var c in list)
                         _allCurrencies.Add(c);
 
-                    ApplySearchFilter(); // одразу застосовуємо пошук/фільтр
+                    ApplySearchFilter(); // одразу необхідно застосувати пошук/фільтр для списку
                 }
             }
             catch (Exception ex)
