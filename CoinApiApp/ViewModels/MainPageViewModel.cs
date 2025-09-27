@@ -114,7 +114,7 @@ namespace CoinApiApp.ViewModels
                 {
                     _coinCount = value;
                     OnPropertyChanged();
-                    LoadCurrencies(); // перезавантажуємо список при зміні
+                    LoadCurrencies(); // перезавантаження списку при зміні
                 }
             }
         }
