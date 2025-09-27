@@ -25,21 +25,15 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- назва + символ -->
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <!-- показники -->
             <RowDefinition Height="*"/>
-            <!-- графік -->
         </Grid.RowDefinitions>
-
-        <!-- Назва і символ -->
-        <!--<StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Grid.Column="1">-->
         <Grid Grid.Column="1" Grid.Row="0">
             <TextBlock Text="{Binding Name}" 
                    FontSize="20" 
                    FontWeight="Bold" 
-           HorizontalAlignment="Center" />
+            HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <TextBlock Text="{Binding Symbol}" 
@@ -47,29 +41,20 @@
                    Foreground="Black"
            HorizontalAlignment="Center"/>
         </Grid>
-        <!--</StackPanel>-->
-
-        <!-- Показники в 2 стовпці -->
         <Grid Grid.Row="2" Margin="0,0,0,10" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
             <StackPanel Grid.Column="0" Margin="10,0">
                 <TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding CurrentPrice, StringFormat='Ціна: {0:C}'}" TextAlignment="Center"/>
-                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding MarketCap, Converter = {StaticResource MoneyConverter} StringFormat='Капіталізація: ${0}'}" TextAlignment="Center" ToolTip="{Binding MarketCap, StringFormat='Капіталізація: {0:C}'}"/>-->
                 <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Капіталізація: {0}">
-                            <!-- скорочене значення -->
                             <Binding Path="MarketCap" Converter="{StaticResource MoneyConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
-
                     <TextBlock.ToolTip>
-                        <!-- повне значення-->
-                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
                         <StackPanel>
                             <TextBlock Text="Капіталізація:" FontWeight="Bold"/>
                             <TextBlock Text="{Binding MarketCap, StringFormat={}{0:N0} USD}" />
@@ -79,56 +64,40 @@
                 <TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding PriceChangePercentage24h, StringFormat='Зміна за 24h: {0:N2}%'}" TextAlignment="Center" />
                 <TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding MarketCapRank, StringFormat='Ранг: {0}'}" TextAlignment="Center"/>
             </StackPanel>
-
             <StackPanel Grid.Column="1" Margin="10,0">
-                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding TotalSupply, StringFormat='Макс. кількість: {0}'}" TextAlignment="Center"/>-->
                 <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Макс. кількість: {0}">
-                            <!-- скорочене значення -->
                             <Binding Path="TotalSupply" Converter="{StaticResource MoneyConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
-
                     <TextBlock.ToolTip>
-                        <!-- повне значення-->
-                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
                         <StackPanel>
                             <TextBlock Text="Макс. кількість:" FontWeight="Bold"/>
                             <TextBlock Text="{Binding TotalSupply, StringFormat={}{0:N0} USD}" />
                         </StackPanel>
                     </TextBlock.ToolTip>
                 </TextBlock>
-                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding CirculatingSupply, StringFormat='В обігу: {0:N2}'}" TextAlignment="Center"/>-->
                 <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="В обігу: {0}">
-                            <!-- скорочене значення -->
                             <Binding Path="CirculatingSupply" Converter="{StaticResource MoneyConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
-
                     <TextBlock.ToolTip>
-                        <!-- повне значення-->
-                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
                         <StackPanel>
                             <TextBlock Text="В обігу:" FontWeight="Bold"/>
                             <TextBlock Text="{Binding CirculatingSupply, StringFormat={}{0:N0} USD}" />
                         </StackPanel>
                     </TextBlock.ToolTip>
                 </TextBlock>
-                <!--<TextBlock FontSize="15px" FontWeight="DemiBold" Text="{Binding TotalVolume, StringFormat='Обсяг торгів (24h): {0:N2}'}" TextAlignment="Center"/>-->
                 <TextBlock TextAlignment="Center" FontSize="15px" FontWeight="DemiBold">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Обсяг торгів (24h): {0}">
-                            <!-- скорочене значення -->
                             <Binding Path="TotalVolume" Converter="{StaticResource MoneyConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
-
                     <TextBlock.ToolTip>
-                        <!-- повне значення-->
-                        <!--<Binding Path="MarketCap" StringFormat="Капіталізація: {0:N0}" />-->
                         <StackPanel>
                             <TextBlock Text="Обсяг торгів (24h):" FontWeight="Bold"/>
                             <TextBlock Text="{Binding TotalVolume, StringFormat={}{0:N0} USD}" />
@@ -138,7 +107,7 @@
             </StackPanel>
         </Grid>
         <oxy:PlotView Grid.Row="3" 
-                  Grid.ColumnSpan="4" 
-                  Model="{Binding PricePlotModel}" />
+                      Grid.ColumnSpan="4" 
+                      Model="{Binding PricePlotModel}" />
     </Grid>
 </Window>
